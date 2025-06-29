@@ -22,8 +22,8 @@ project structure:
 
 weather-app/
 │
-├── index.html        
-├── f.css             
+├── weatherapp.html        
+├── weatherapp.css             
 └── (Optional) script.js 
 
 
