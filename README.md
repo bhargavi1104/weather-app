@@ -15,9 +15,11 @@ API Key Required
 ⚠️ Note:
 You must generate your own OpenWeatherMap API key and replace it in the JavaScript file (app.js or inside the <script> in index.html):
 ""const apiKey = 'YOUR_API_KEY_HERE';""
+
 You can get a free API key by signing up at https://openweathermap.org/api
 
 project structure:
+
 weather-app/
 │
 ├── index.html        
