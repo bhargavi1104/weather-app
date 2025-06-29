@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="weatherapp.css">
+</head>
+<body>
+    <div class="card">
+        <h1>Weather App</h1><br>
+        <div class="search">
+            <input type="text" id="locationInput" placeholder="Enter location" spellcheck="false">
+            <button id="getWeatherBtn">Search</button>
+            <button id="getCurrentLocationWeatherBtn" class="large-button">Your Weather</button>
+        </div>
+        <div id="results" class="location-options"></div>
+        <div class="weather">
+            <img src="C:\Users\bharg\OneDrive\Desktop\weatherapp\weather-1024.webp" alt="Weather Icon" class="weather-icon">
+            <h1 class="temp">--°C</h1>
+            <h2 class="location">--</h2>
+            <div class="details">
+                <div class="col">
+                    <img src="C:\Users\bharg\OneDrive\Desktop\weatherapp\th.jpeg" alt="Humidity Icon">
+                    <div>
+                        <p class="humidity">--</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="C:\Users\bharg\OneDrive\Desktop\weatherapp\download (1).jpeg" alt="Wind Icon">
+                    <div>
+                        <p class="wind">--</p>
+                        <p>Wind speed</p>
+                    </div>
+                </div>
+            </div>
+            <p id="error-message" style="color: red; margin-top: 20px;"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set Seetharampuram, Andhra Pradesh as the default location
+            const defaultLocation = { lat: 16.821, lon: 81.523, name: 'Seetharampuram' };
+
+            fetchWeather(defaultLocation.lat, defaultLocation.lon, defaultLocation.name);
+        });
+
+        document.getElementById('getWeatherBtn').addEventListener('click', function() {
+            const location = document.getElementById('locationInput').value.trim();
+            if (!location) {
+                document.getElementById('error-message').textContent = 'Please enter a location.';
+                return;
+            }
+
+            const apiKey = '';#use api key here
+
+            const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(location)}&limit=5&appid=${apiKey}`;
+
+            fetch(geoUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Location not found.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.length === 0) {
+                        throw new Error('Location not found.');
+                    }
+
+                    let resultsHtml = '<h2>Select the correct location:</h2>';
+                    data.slice(0, 3).forEach((item) => { // Limit to top 3 locations
+                        resultsHtml += `<div class="location-option">
+                            <button onclick="selectLocation(${item.lat}, ${item.lon}, '${item.name}', this)">${item.name}, ${item.state || ''}, ${item.country}</button>
+                        </div>`;
+                    });
+                    document.getElementById('results').innerHTML = resultsHtml;
+
+                    document.getElementById('error-message').textContent = '';
+                })
+                .catch(error => {
+                    document.querySelector('.temp').textContent = '--°C';
+                    document.querySelector('.location').textContent = '--';
+                    document.querySelector('.humidity').textContent = '--';
+                    document.querySelector('.wind').textContent = '--';
+                    document.querySelector('.weather-icon').src ="C:\\Users\\bharg\\Downloads\\weather-1024.webp";
+                    document.getElementById('error-message').textContent = 'Failed to retrieve location data. Please try again.';
+                });
+        });
+
+        document.getElementById('getCurrentLocationWeatherBtn').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    fetchWeather(lat, lon, 'Your Location');
+                }, () => {
+                    document.getElementById('error-message').textContent = 'Unable to retrieve your location.';
+                });
+            } else {
+                document.getElementById('error-message').textContent = 'Geolocation is not supported by this browser.';
+            }
+        });
+
+        function selectLocation(lat, lon, name) {
+            const locationOptions = document.querySelectorAll('.location-option');
+            locationOptions.forEach(option => {
+                option.classList.add('fade-out');
+            });
+
+            setTimeout(() => {
+                fetchWeather(lat, lon, name);
+                document.getElementById('results').innerHTML = '';
+            }, 500);
+        }
+
+        function fetchWeather(lat, lon, name) {
+            const apiKey = 'b75041c8a9c29b238216f46069405de0';
+            const weatherUrl = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+
+            fetch(weatherUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Weather data not found.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.querySelector('.temp').textContent = `${Math.round(data.main.temp)}°C`;
+                    document.querySelector('.location').textContent = name;
+                    document.querySelector('.humidity').textContent = `${data.main.humidity}%`;
+                    document.querySelector('.wind').textContent = `${data.wind.speed} km/hr`;
+
+                    const weatherIcon = document.querySelector('.weather-icon');
+                    const weatherCondition = data.weather[0].main.toLowerCase();
+                    if (weatherCondition.includes('cloud')) {
+                        weatherIcon.src = 'https://img.icons8.com/fluency/100/cloud.png';
+                    } else if (weatherCondition.includes('rain')) {
+                        weatherIcon.src = 'https://img.icons8.com/fluency/100/rain.png';
+                    } else if (weatherCondition.includes('clear')) {
+                        weatherIcon.src = 'https://img.icons8.com/fluency/100/sun.png';
+                    } else {
+                        weatherIcon.src = "C:\\Users\\bharg\\Downloads\\weather-1024.webp";
+                    }
+
+                    document.getElementById('error-message').textContent = '';
+                })
+                .catch(error => {
+                    document.querySelector('.temp').textContent = '--°C';
+                    document.querySelector('.location').textContent = '--';
+                    document.querySelector('.humidity').textContent = '--';
+                    document.querySelector('.wind').textContent = '--';
+                    document.querySelector('.weather-icon').src = "C:\\Users\\bharg\\Downloads\\weather-1024.webp";
+                    document.getElementById('error-message').textContent = 'Failed to retrieve weather data. Please try again.';
+                });
+        }
+    </script>
+</body>
+</html>

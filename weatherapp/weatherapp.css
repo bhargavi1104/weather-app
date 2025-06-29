@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+}
+
+.card {
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(135deg, #00feba, #5b548a);
+    color: #fff;
+    border-radius: 0;
+    padding: 40px 35px;
+    text-align: center;
+    box-sizing: border-box;
+  
+}
+
+.search {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.search input {
+    border: 0;
+    outline: 0;
+    background: #ebffcc;
+    color: #555;
+    padding: 10px 25px;
+    height: 50px;
+    border-radius: 40px;
+    flex: 1;
+    margin-right: 14px;
+    font-size: 18px;
+}
+
+.search button {
+    border: 0;
+    outline: 0;
+    background:#ebffc;
+    border-radius: 60%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+#getWeatherBtn {
+    background-color:#ebffc;     
+}
+
+#getWeatherBtn:hover {
+    background-color:#ebffc; 
+}
+
+.large-button {
+    width: 100px; 
+    height: 100px; 
+    font-size: 14px; 
+    border-radius: 50%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#ebffc; 
+    color: black;
+    margin-left: 10px; 
+}
+
+.large-button:hover {
+    background-color:#ebffc;
+}
+
+.weather-icon {
+    width: 170px;
+    margin-top: 20px;
+}
+
+.weather h1 {
+    font-size: 80px;
+    font-weight: 500;
+}
+
+.weather h2 {
+    font-size: 45px;
+    font-weight: 400;
+    margin-top: -10px;
+}
+
+.details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.details .col {
+    display: flex;
+    align-items: center;
+}
+
+.details img {
+    width: 80px; 
+    height: 80px; 
+   margin-bottom: -30px; 
+}
+
+.details div {
+    margin-left: 10px;
+}
+
+.details p {
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.location-options {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.location-options h2 {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.location-option {
+    margin-top: 4px;
+}
+
+.location-option button {
+    background: #444;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.location-option button:hover {
+    background: #888;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
