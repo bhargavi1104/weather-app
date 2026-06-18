@@ -1,4 +1,3 @@
-
 # 🌦️ Weather App
 # 🔗 Working Demo
 Check out the working demonstration of this project:
