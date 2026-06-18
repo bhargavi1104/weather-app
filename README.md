@@ -81,4 +81,4 @@ weather-app/
 ## 📌 Project Objective
 
 This project demonstrates the integration of APIs with frontend technologies to build a real-time weather application with a simple and interactive user experience.
-````
+
