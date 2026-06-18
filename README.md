@@ -1,8 +1,10 @@
 
 # 🌦️ Weather App
-## Working Demo:
 
-# checkout the video:
+## 🔗 Working Demo
+Check out the working demonstration of this project:
+
+👉 Live Demo:
 https://drive.google.com/file/d/1fseZyGnaTxdPnymPXeCLyz3DhuoSwJC-/view?usp=sharing
 
 A responsive and user-friendly weather application that provides real-time weather information based on user input or current location.
